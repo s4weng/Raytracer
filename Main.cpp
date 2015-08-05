@@ -88,6 +88,15 @@ int main(){
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
 
+	Vector camPos(3, 1.5, -4);
+	Vector target;
+	Vector diff(camPos.getX() - target.getX(), camPos.getY() - target.getY(), camPos.getZ() - target.getZ());
+
+	Vector camDir = diff.negative().normalize();
+	Vector camRight = Y.crossProduct(camDir).normalize();
+	Vector camDown = camRight.crossProduct(camDir);
+	Camera scene_cam(camPos, camDir, camRight, camDown);
+
 	for (unsigned int i = 0; i < width; ++i){
 
 		for (unsigned int j = 0; j < height; ++j){
