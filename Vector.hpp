@@ -18,7 +18,7 @@ public:
 	Vector negative();
 	Vector crossProduct(Vector v);
 	Vector add(Vector v);
-	Vector multiplty(double k);
+	Vector multiply(double k);
 
 private:
 

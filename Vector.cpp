@@ -33,8 +33,8 @@ double Vector::dotProduct(Vector v){
 
 Vector Vector::normalize(){
 
-	double magnitude = findMagnitude();
-	return Vector(x/magnitude, y/magnitude, z/magnitude);
+	double mag = magnitude();
+	return Vector(x/mag, y/mag, z/mag);
 }
 
 Vector Vector::negative(){
