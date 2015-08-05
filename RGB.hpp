@@ -1,5 +1,5 @@
-#ifndef _RGB_H__
-#define _RGB_H__
+#ifndef _RGB_HPP__
+#define _RGB_HPP__
 
 struct RGB {
 

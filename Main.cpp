@@ -1,4 +1,7 @@
-#include "RGB.h"
+#include "RGB.hpp"
+#include "Vector.hpp"
+#include "Ray.hpp"
+#include "Camera.hpp"
 
 #include <iostream>
 #include <string>
@@ -81,15 +84,29 @@ int main(){
 	data.reserve(width*height);
 	int index;
 
+	Vector X(1, 0, 0);
+	Vector Y(0, 1, 0);
+	Vector Z(0, 0, 1);
+
 	for (unsigned int i = 0; i < width; ++i){
 
 		for (unsigned int j = 0; j < height; ++j){
 
 			index = j*width + i;
 
-			data[index].red = 0.1;
-			data[index].green = 0.4;
-			data[index].blue = 0.11;
+			if ((i > 200 && i < 440) && (j > 200 && j < 280)){
+
+				data[index].red = 0.1;
+				data[index].green = 0.4;
+				data[index].blue = 0.11;
+			}
+
+			else {
+
+				data[index].red = 1;
+				data[index].green = 1;
+				data[index].blue = 1;	
+			}
 		}
 	}
 
