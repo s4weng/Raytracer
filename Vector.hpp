@@ -12,6 +12,14 @@ public:
 	double getY();
 	double getZ();
 
+	double magnitude();
+	double dotProduct(Vector v);
+	Vector normalize();
+	Vector negative();
+	Vector crossProduct(Vector v);
+	Vector add(Vector v);
+	Vector multiplty(double k);
+
 private:
 
 	double x;
