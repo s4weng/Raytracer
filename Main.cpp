@@ -2,16 +2,20 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include <math.h>
 
 const unsigned int width = 640;
 const unsigned int height = 480;
+const unsigned int dpi = 72;
 
-void savebmp (const char *filename, int w, int h, int dpi, RGB *data) {
+//thanks for rasterrain (sourceforge) for providing this code
+//minor modifications made
+void saveBMP (std::vector<RGB>& data) {
 
 	FILE *f;
-	int k = w*h;
+	int k = width*height;
 	int s = 4*k;
 	int filesize = 54 + s;
 	
@@ -28,15 +32,15 @@ void savebmp (const char *filename, int w, int h, int dpi, RGB *data) {
 	bmpfileheader[ 4] = (unsigned char)(filesize>>16);
 	bmpfileheader[ 5] = (unsigned char)(filesize>>24);
 	
-	bmpinfoheader[ 4] = (unsigned char)(w);
-	bmpinfoheader[ 5] = (unsigned char)(w>>8);
-	bmpinfoheader[ 6] = (unsigned char)(w>>16);
-	bmpinfoheader[ 7] = (unsigned char)(w>>24);
+	bmpinfoheader[ 4] = (unsigned char)(width);
+	bmpinfoheader[ 5] = (unsigned char)(width>>8);
+	bmpinfoheader[ 6] = (unsigned char)(width>>16);
+	bmpinfoheader[ 7] = (unsigned char)(width>>24);
 	
-	bmpinfoheader[ 8] = (unsigned char)(h);
-	bmpinfoheader[ 9] = (unsigned char)(h>>8);
-	bmpinfoheader[10] = (unsigned char)(h>>16);
-	bmpinfoheader[11] = (unsigned char)(h>>24);
+	bmpinfoheader[ 8] = (unsigned char)(height);
+	bmpinfoheader[ 9] = (unsigned char)(height>>8);
+	bmpinfoheader[10] = (unsigned char)(height>>16);
+	bmpinfoheader[11] = (unsigned char)(height>>24);
 	
 	bmpinfoheader[21] = (unsigned char)(s);
 	bmpinfoheader[22] = (unsigned char)(s>>8);
@@ -53,21 +57,19 @@ void savebmp (const char *filename, int w, int h, int dpi, RGB *data) {
 	bmpinfoheader[31] = (unsigned char)(ppm>>16);
 	bmpinfoheader[32] = (unsigned char)(ppm>>24);
 	
-	f = fopen(filename,"wb");
+	f = fopen("scene.bmp", "wb");
 	
 	fwrite(bmpfileheader,1,14,f);
 	fwrite(bmpinfoheader,1,40,f);
 	
 	for (int i = 0; i < k; i++) {
-		RGB rgb = data[i];
 		
 		double red = (data[i].red)*255;
 		double green = (data[i].green)*255;
 		double blue = (data[i].blue)*255;
 		
-		unsigned char color[3] = {(int)floor(blue),(int)floor(green),(int)floor(red)};
-		
-		fwrite(color,1,3,f);
+		unsigned char color[3] = {(int)floor(blue), (int)floor(green), (int)floor(red)};
+		fwrite(color, 1, 3, f);
 	}
 	
 	fclose(f);
@@ -75,23 +77,23 @@ void savebmp (const char *filename, int w, int h, int dpi, RGB *data) {
 
 int main(){
 
-	int dpi = 72;
-	int n = width*height;
-	RGB *pixels = new RGB[n];
-	int val;
+	std::vector<RGB> data;
+	data.reserve(width*height);
+	int index;
 
 	for (unsigned int i = 0; i < width; ++i){
 
 		for (unsigned int j = 0; j < height; ++j){
 
-			val = j*width + i;
+			index = j*width + i;
 
-			pixels[val].red = 23;
-			pixels[val].green = 222;
-			pixels[val].blue = 11;
+			data[index].red = 0.1;
+			data[index].green = 0.4;
+			data[index].blue = 0.11;
 		}
 	}
 
-	savebmp("scene.bmp", width, height, dpi, pixels);
+	saveBMP(data);
+
 	return 0;
 }
