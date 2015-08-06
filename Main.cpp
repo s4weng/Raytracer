@@ -2,6 +2,9 @@
 #include "Vector.hpp"
 #include "Ray.hpp"
 #include "Camera.hpp"
+#include "Colour.hpp"
+#include "Light.hpp"
+#include "Sphere.hpp"
 
 #include <iostream>
 #include <string>
@@ -84,6 +87,7 @@ int main(){
 	data.reserve(width*height);
 	int index;
 
+	Vector origin(0, 0, 0);
 	Vector X(1, 0, 0);
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
@@ -96,6 +100,16 @@ int main(){
 	Vector camRight = Y.crossProduct(camDir).normalize();
 	Vector camDown = camRight.crossProduct(camDir);
 	Camera scene_cam(camPos, camDir, camRight, camDown);
+
+	Colour white_light(1, 1, 1, 0);
+	Colour green(0.5, 1, 0.5, 0.3);
+	Colour gray(0.5, 0.5, 0.5, 0);
+	Colour black(0, 0, 0, 0);
+
+	Vector light_position(-7, 10, -10);
+	Light scene_light(light_position, white_light);
+
+	Sphere scene_sphere(origin, 1, green);
 
 	for (unsigned int i = 0; i < width; ++i){
 
