@@ -110,6 +110,7 @@ int main(){
 	Light scene_light(light_position, white_light);
 
 	Sphere scene_sphere(origin, 1, green);
+	Plane scene_plane(Y, -1, maroon);
 
 	for (unsigned int i = 0; i < width; ++i){
 

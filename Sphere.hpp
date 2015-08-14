@@ -3,8 +3,9 @@
 
 #include "Colour.hpp"
 #include "Vector.hpp"
+#include "Object.hpp"
 
-class Sphere {
+class Sphere : public Object {
 
 public:
 
@@ -13,7 +14,7 @@ public:
 
 	Vector getCenter();
 	double getRadius();
-	Colour getColour();
+	virtual Colour getColour();
 
 private:
 

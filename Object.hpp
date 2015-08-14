@@ -9,7 +9,7 @@ class Object {
 public:
 
 	Object();
-	Colour getColour();
+	virtual Colour getColour();
 	double findIntersect(Ray ray);
 
 private:
